@@ -28,6 +28,8 @@ export interface IMessagesSink {
 	messages: Stream<IMessage>
 }
 
+type Port = browser.runtime.Port
+
 /**
  * Creates a Cycle.js driver to send and receive messages in a WebExtension.
  *
@@ -42,42 +44,46 @@ export function makeMessagesDriver({ shouldInitiate }: { shouldInitiate: boolean
 	 * responses received on the channel.
 	 */
 	return (outgoingMessage$: Stream<IMessage>): Stream<IMessage> => {
-		let channel: browser.runtime.Port
+		let channels: Port[] = []
 		let outgoingSubscription: Subscription
-		let connected = false
 		let observer: Listener<IMessage>
 
 		function forwardMessage(incomingMessage: IMessage) {
 			observer.next(incomingMessage)
 		}
 
-		function connectToChannel(newChannel: browser.runtime.Port) {
-			if (connected) { return }
-			connected = true
-			channel = newChannel
 			const outgoingMessageListener = {
 				next: (outgoingMessage: IMessage) => {
 					try {
-						channel.postMessage(outgoingMessage)
+					channels.map(channel => channel.postMessage(outgoingMessage))
 					} catch (error) {
 						// console.warn(error)
 						// console.warn('Failed to send message', outgoingMessage)
 					}
 				},
-				error: () => { }, // TODO: What should happen here?
-				complete: () => { }, // TODO: What should happen here?
+			error: () => { }, // TODO: What should be done here?
+			complete: () => { }, // TODO: What should be done here?
 			}
 
+		function connectToChannel(newChannel: Port) {
+			if (channels.includes(newChannel)) { return }
+			if (channels.length === 0) {
 			outgoingSubscription = outgoingMessage$.subscribe(outgoingMessageListener)
-			channel.onMessage.addListener(forwardMessage)
+			}
+
+			channels = [...channels, newChannel]
+			newChannel.onMessage.addListener(forwardMessage)
 			// console.log('Connected to: ', channel)
-			channel.onDisconnect.addListener(
-				(port: browser.runtime.Port) => {
+			newChannel.onDisconnect.addListener(
+				(port: Port) => {
 					// console.log('Disconnecting from : ', channel)
 					// TODO: update typing for onMessage.removeListener
-					(channel as any).onMessage.removeListener(forwardMessage)
-					outgoingMessage$.removeListener(outgoingMessageListener)
-					connected = false
+					(newChannel as any).onMessage.removeListener(forwardMessage)
+					channels = channels.reduce(
+						(acc: Port[], channel) =>
+							channel === newChannel ? acc : acc.concat(channel),
+						[])
+					if (channels.length === 0) { outgoingSubscription.unsubscribe() }
 				},
 			)
 		}
@@ -93,7 +99,7 @@ export function makeMessagesDriver({ shouldInitiate }: { shouldInitiate: boolean
 			},
 			stop: () => {
 				outgoingSubscription.unsubscribe()
-				if (channel) { channel.disconnect() }
+				channels.map(channel => channel.disconnect())
 			},
 		})
 

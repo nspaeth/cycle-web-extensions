@@ -1,0 +1,29 @@
+{
+  "exclude": ["**/*.test.*"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "baseUrl": "./src",
+    "outDir": "dist",
+    "rootDir": "src",
+    "lib": [
+      "es2015",
+      "es2016",
+      "es2017",
+      "dom"
+    ],
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "target": "es5",
+    "typeRoots": ["@types", "node_modules/web-ext-types"]
+  },
+  "typingOptions": {
+    "enableAutoDiscovery": true
+  },
+  "types": [
+    "chrome"
+  ],
+  "typeRoots": ["@types", "node_modules/web-ext-types"]
+}

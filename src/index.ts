@@ -52,23 +52,23 @@ export function makeMessagesDriver({ shouldInitiate }: { shouldInitiate: boolean
 			observer.next(incomingMessage)
 		}
 
-			const outgoingMessageListener = {
-				next: (outgoingMessage: IMessage) => {
-					try {
+		const outgoingMessageListener = {
+			next: (outgoingMessage: IMessage) => {
+				try {
 					channels.map(channel => channel.postMessage(outgoingMessage))
-					} catch (error) {
-						// console.warn(error)
-						// console.warn('Failed to send message', outgoingMessage)
-					}
-				},
+				} catch (error) {
+					// console.warn(error)
+					// console.warn('Failed to send message', outgoingMessage)
+				}
+			},
 			error: () => { }, // TODO: What should be done here?
 			complete: () => { }, // TODO: What should be done here?
-			}
+		}
 
 		function connectToChannel(newChannel: Port) {
 			if (channels.includes(newChannel)) { return }
 			if (channels.length === 0) {
-			outgoingSubscription = outgoingMessage$.subscribe(outgoingMessageListener)
+				outgoingSubscription = outgoingMessage$.subscribe(outgoingMessageListener)
 			}
 
 			channels = [...channels, newChannel]
@@ -263,5 +263,5 @@ export function newMessage(type: MessageType | MessageType[], payload?: any): IM
 export function pickType(message$: Stream<IMessage>, type: string) {
 	return message$
 		.filter(msg => msg.type === type)
-		.map((msg: IMessage) => msg.payload)
+		.map(msg => msg.payload)
 }

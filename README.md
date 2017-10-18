@@ -2,6 +2,8 @@
 
 Cycle.js drivers to use in Chrome extensions and WebExtensions.
 
+Forked from https://github.com/appsforartists/midicast/tree/develop/packages/cycle-extensions
+
 ## Drivers ##
 
 - [`MessagesDriver`](#MessagesDriver)

@@ -66,8 +66,8 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
 diff@^3.2.0:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/diff/-/diff-3.3.1.tgz#aa8567a6eed03c531fc89d3f711cd0e5259dec75"
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/diff/-/diff-3.4.0.tgz#b1d85507daf3964828de54b37d0d73ba67dda56c"
 
 editorconfig@^0.13.2:
   version "0.13.3"
@@ -201,8 +201,8 @@ tslint@^5.7.0:
     tsutils "^2.8.1"
 
 tsutils@^2.8.1:
-  version "2.11.2"
-  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.11.2.tgz#6013601e36fa14ff958413e541d427fb8c6ac341"
+  version "2.12.1"
+  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.12.1.tgz#f4d95ce3391c8971e46e54c4cf0edb0a21dd5b24"
   dependencies:
     tslib "^1.7.1"
 
@@ -217,9 +217,9 @@ typescript@^2.5.3:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.3.tgz#df3dcdc38f3beb800d4bc322646b04a3f6ca7f0d"
 
-web-ext-types@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/web-ext-types/-/web-ext-types-0.3.1.tgz#77c483ade0781d79b8697351e832017dd94661a6"
+web-ext-types@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/web-ext-types/-/web-ext-types-0.3.2.tgz#abc3c25dc5eb25316bd2a513b73100ceb01e3c20"
 
 wrappy@1:
   version "1.0.2"

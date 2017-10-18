@@ -1,6 +1,14 @@
 {
   "name": "cycle-web-extensions",
-  "version": "0.5",
+  "version": "0.5.0",
+  "license": "Apache-2.0",
+  "description": "Cycle drivers to build WebExtensions",
+  "repository": "https://github.com/nspaeth/cycle-web-extensions",
+  "bugs": "https://github.com/nspaeth/cycle-web-extensions/issues",
+  "contributors": [
+    {"name": "Nathan Spaeth", "email": "nathan@spaeth.nl"},
+    {"name": "Brenton Simpson", "email": "appsforartists@google.com"}
+  ],
   "scripts": {
     "clean": "rm -rf ./dist/*; mkdir -p ./dist/",
     "lint": "tslint -c ./tslint.json --project tsconfig.json",
@@ -9,27 +17,21 @@
     "format:tsfmt": "tsfmt -r",
     "format": "yarn run format:tsfmt && yarn run format:tslint"
   },
-  "description": "Cycle drivers to build WebExtensions",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "types": "dist/index.d.ts",
   "typescript:main": "src/index.ts",
-  "contributors": [
-    "Nathan Spaeth <nathan@spaeth.nl>",
-    "Brenton Simpson <appsforartists@google.com>"
-  ],
-  "license": "Apache-2.0",
   "dependencies": {
     "@cycle/run": "^3.2.0",
     "tslib": "^1.4.0",
-    "tslint": "^5.7.0",
-    "web-ext-types": "^0.3.1",
     "xstream": "^11.0.0"
   },
   "peerDependencies": {},
   "devDependencies": {
+    "tslint": "^5.7.0",
     "typescript": "^2.5.3",
-    "typescript-formatter": "^6.0.0"
+    "typescript-formatter": "^6.0.0",
+    "web-ext-types": "^0.3.2"
   },
   "keywords": [
     "cycle",

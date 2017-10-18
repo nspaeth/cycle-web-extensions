@@ -2,7 +2,7 @@
 
 Cycle.js drivers to use in Chrome extensions and WebExtensions.
 
-Forked from https://github.com/appsforartists/midicast/tree/develop/packages/cycle-extensions
+Forked from [cycle-extensions](https://github.com/appsforartists/midicast/tree/develop/packages/cycle-extensions) to rewrite it with xstream. Additionally support for the `tabs` and `windows` APIs was added, and the `MessagesDriver` now supports more than one simultaneous connection.
 
 ## Drivers ##
 
@@ -109,13 +109,13 @@ run(
 
 ### `WindowsDriver` ###
 
-* TODO
+* *TODO:* Document this
 
 ### `TabsDriver` ###
 
-* TODO
+* *TODO:* Document this
 
-To see a real extension written with these drivers, check out [tableut](https://github.com/nspaeth/tableut).
+To see a real extension written with these drivers, check out [nspaeth/tab-manager](https://github.com/nspaeth/tab-manager).
 
 ## Installation ##
 

@@ -57,6 +57,7 @@ export function makeMessagesDriver({ shouldInitiate }: { shouldInitiate: boolean
 				try {
 					channels.map(channel => channel.postMessage(outgoingMessage))
 				} catch (error) {
+					// TODO: What are the failure modes here?
 					// console.warn(error)
 					// console.warn('Failed to send message', outgoingMessage)
 				}
@@ -235,12 +236,20 @@ export function makeTabDriver({ createListeners }: { createListeners: boolean })
 	const createIncomingHandlers = (listener: Listener<IMessage>) => {
 		const handlers = tabEvents
 			.map(event => ({
-				[event]: (...payload: any[]) => listener.next(newMessage(event, payload)),
+				[event]: (...payload: any[]) => {
+					console.log('error on event: ', event)
+					listener.next(newMessage(event, payload))
+				},
 			}),
 		)
 		const events = Object.assign({}, ...handlers)
 
 		Object.entries(events)
+			.filter(([event, handler]) => {
+				const exists = !!(browser as any).tabs[event]
+				if (!exists) console.warn(`${event} does not exist on chrome.tabs`)
+				return exists
+			})
 			.map(([event, handler]) => (browser as any).tabs[event].addListener(handler))
 	}
 	return createAPIDriver(createOutgingHandlers, createIncomingHandlers)
